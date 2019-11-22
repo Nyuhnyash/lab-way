@@ -12,18 +12,23 @@ namespace lab_way
 {
     public partial class Form1 : Form
     {
-        Board board = new Board();
         public static Graphics g;
+        public Pen pen;
         public Form1()
         {
             InitializeComponent();
             g = panel1.CreateGraphics();
-            
+            Board.New();
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void Panel1_Paint(object sender, PaintEventArgs e)
         {
-            board.Paint();
+            Board.Paint();
+        }
+
+        private void Panel1_MouseClick(object sender, MouseEventArgs e)
+        {
+            Board.Reaction(e.X, e.Y);
         }
     }
 }
