@@ -18,6 +18,7 @@ namespace lab_way
         {
             InitializeComponent();
             g = panel1.CreateGraphics();
+            panel1.Size = new System.Drawing.Size((int)(Board.size * Board.pixelsize), (int)(Board.size * Board.pixelsize));
             Board.New();
         }
 
@@ -28,7 +29,7 @@ namespace lab_way
 
         private void Panel1_MouseClick(object sender, MouseEventArgs e)
         {
-            Board.Reaction(e.X, e.Y);
+            Board.Reaction(e.Location,e.Button);
         }
     }
 }

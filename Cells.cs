@@ -15,7 +15,13 @@ namespace lab_way
         {
             this.state = state;
         }
-        abstract public void Paint();
+        public void Paint()
+        {
+            Form1.g.FillRectangle(new SolidBrush(Color.LightGray), Board.pixelsize * i, Board.pixelsize * j, Board.pixelsize, Board.pixelsize);
+            Form1.g.DrawRectangle(new Pen(Color.Black), Board.pixelsize * i+1, Board.pixelsize * j+1, Board.pixelsize-2, Board.pixelsize-2);
+            Paint2();
+        }
+        abstract public void Paint2();
     }
     class StraigthCell : Cell
     {
@@ -23,7 +29,7 @@ namespace lab_way
         {
 
         }
-        public override void Paint()
+        public override void Paint2()
         {
             PointF p1, p2;
             // Запутанный метод
@@ -50,39 +56,44 @@ namespace lab_way
         {
             
         }
-        public override void Paint()
+        public override void Paint2()
         {
             PointF pc = new PointF(Board.pixelsize * (float)(i + 0.5), Board.pixelsize * (float)(j + 0.5)),
-                   p1 = new PointF(Board.pixelsize * (float)(i + 0.5 + Math.Sin(state * Math.PI / 2)), Board.pixelsize * (float)(j + 0.5 + Math.Cos(state * Math.PI / 2)));
-
+                   p1 = new PointF(Board.pixelsize * (float)(i + 0.5 + 0.5 * Math.Sin(state * Math.PI / 2)), Board.pixelsize * (float)(j + 0.5 + 0.5 * Math.Cos(state * Math.PI / 2))),
+                   p2 = new PointF(Board.pixelsize * (float)(i + 0.5 + 0.5 * Math.Sin(state * Math.PI / 2 + Math.PI / 2)), Board.pixelsize * (float)(j + 0.5 + 0.5 * Math.Cos(state * Math.PI / 2 + Math.PI / 2)));
             Form1.g.DrawLine(Board.pen, p1, pc);
+            Form1.g.DrawLine(Board.pen, p2, pc);
 
         }
     }
     abstract class EndCell : Cell
     {
-        public Pen endpen;
+        public Brush endbrush;
         public EndCell(int state) : base(state)
         {
 
         }
-        public override void Paint()
+        public override void Paint2()
         {
-            //throw new NotImplementedException();
+            PointF pc = new PointF(Board.pixelsize * (float)(i + 0.5), Board.pixelsize * (float)(j + 0.5)),
+                   p = new PointF(Board.pixelsize * (float)(i + 0.5 + 0.5 * Math.Sin(state * Math.PI / 2)), Board.pixelsize * (float)(j + 0.5 + 0.5 * Math.Cos(state * Math.PI / 2)));
+            Form1.g.DrawLine(Board.pen, p, pc);
+            float r = Board.pixelsize / 5;
+            Form1.g.FillEllipse(endbrush, pc.X - r, pc.Y - r, 2 * r, 2 * r);
         }
     }
     class StartCell : EndCell
     {
         public StartCell(int state) : base(state)
         {
-            endpen = new Pen(Color.Blue);
+            endbrush = new SolidBrush(Color.Blue);
         }
     }
     class FinishCell : EndCell
     {
         public FinishCell(int state) : base(state)
         {
-            endpen = new Pen(Color.Red);
+            endbrush = new SolidBrush(Color.Red);
         }
     }
 }
