@@ -18,7 +18,7 @@ namespace lab_way
         {
             InitializeComponent();
             g = panel1.CreateGraphics();
-            panel1.Size = new System.Drawing.Size((int)(Board.size * Board.pixelsize), (int)(Board.size * Board.pixelsize));
+            panel1.Size = new System.Drawing.Size((int)(Board.size * Board.pixelsize+90), (int)(Board.size * Board.pixelsize+90));
             Board.New();
         }
 
@@ -30,6 +30,16 @@ namespace lab_way
         private void Panel1_MouseClick(object sender, MouseEventArgs e)
         {
             Board.Reaction(e.Location,e.Button);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Board.New();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Designed by Егор Курясев");
         }
     }
 }

@@ -11,9 +11,12 @@ namespace lab_way
     abstract class Cell
     {
         public int i, j, state;
+        public PointF p1,p2;
         public Cell(int state)
         {
             this.state = state;
+            p1 = new PointF();
+            p2 = new PointF();
         }
         public void Paint()
         {
@@ -31,12 +34,6 @@ namespace lab_way
         }
         public override void Paint2()
         {
-            PointF p1, p2;
-            // Запутанный метод
-            //p1 = new PointF(Board.pixelsize * (i + state * 1 / 2), Board.pixelsize * (j + state * 1 / 2));
-            //p2 = new PointF(Board.pixelsize * (i + 1 / (state + 1)), Board.pixelsize * (j + 1 / (state + 1)));
-
-            // метод попроще
             if (state == 0)
             {
                 p1 = new PointF(Board.pixelsize * i, Board.pixelsize * (float)(j +  0.5));
@@ -58,9 +55,9 @@ namespace lab_way
         }
         public override void Paint2()
         {
-            PointF pc = new PointF(Board.pixelsize * (float)(i + 0.5), Board.pixelsize * (float)(j + 0.5)),
-                   p1 = new PointF(Board.pixelsize * (float)(i + 0.5 + 0.5 * Math.Sin(state * Math.PI / 2)), Board.pixelsize * (float)(j + 0.5 + 0.5 * Math.Cos(state * Math.PI / 2))),
-                   p2 = new PointF(Board.pixelsize * (float)(i + 0.5 + 0.5 * Math.Sin(state * Math.PI / 2 + Math.PI / 2)), Board.pixelsize * (float)(j + 0.5 + 0.5 * Math.Cos(state * Math.PI / 2 + Math.PI / 2)));
+            PointF pc = new PointF(Board.pixelsize * (float)(i + 0.5), Board.pixelsize * (float)(j + 0.5));
+            p1 = new PointF(Board.pixelsize * (float)(i + 0.5 + 0.5 * Math.Sin(state * Math.PI / 2)), Board.pixelsize * (float)(j + 0.5 + 0.5 * Math.Cos(state * Math.PI / 2)));
+            p2 = new PointF(Board.pixelsize * (float)(i + 0.5 + 0.5 * Math.Sin(state * Math.PI / 2 + Math.PI / 2)), Board.pixelsize * (float)(j + 0.5 + 0.5 * Math.Cos(state * Math.PI / 2 + Math.PI / 2)));
             Form1.g.DrawLine(Board.pen, p1, pc);
             Form1.g.DrawLine(Board.pen, p2, pc);
 
@@ -75,9 +72,9 @@ namespace lab_way
         }
         public override void Paint2()
         {
-            PointF pc = new PointF(Board.pixelsize * (float)(i + 0.5), Board.pixelsize * (float)(j + 0.5)),
-                   p = new PointF(Board.pixelsize * (float)(i + 0.5 + 0.5 * Math.Sin(state * Math.PI / 2)), Board.pixelsize * (float)(j + 0.5 + 0.5 * Math.Cos(state * Math.PI / 2)));
-            Form1.g.DrawLine(Board.pen, p, pc);
+            PointF pc = new PointF(Board.pixelsize * (float)(i + 0.5), Board.pixelsize * (float)(j + 0.5));
+            p1 = new PointF(Board.pixelsize * (float)(i + 0.5 + 0.5 * Math.Sin(state * Math.PI / 2)), Board.pixelsize * (float)(j + 0.5 + 0.5 * Math.Cos(state * Math.PI / 2)));
+            Form1.g.DrawLine(Board.pen, p1, pc);
             float r = Board.pixelsize / 5;
             Form1.g.FillEllipse(endbrush, pc.X - r, pc.Y - r, 2 * r, 2 * r);
         }
